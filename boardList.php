@@ -1,3 +1,4 @@
+//수정해봄
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,7 +7,7 @@
   </head>
   <style>
     th{padding:14px;}
-    
+
   </style>
   <body>
     <?php
