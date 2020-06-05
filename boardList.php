@@ -33,8 +33,8 @@
               while($row = mysqli_fetch_array($result)){
             ?>
             <tr>
-              <td><?php print $row[0];?></td>
-              <td><?php print $row[1];?></td>
+              <td><?php print $row['bno'];?></td>
+              <td><?php print $row['writer'];?></td>
               <td><a href="boardRead.php?bno=<?=$row['bno']?>"><?php print $row['title'];?></a></td>
               <td><?php print $row['created'];?></td>
             </tr>

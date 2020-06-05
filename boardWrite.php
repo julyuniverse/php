@@ -2,7 +2,7 @@
 <html>
   <haed>
     <meta charset="utf-8";>
-    <title>board</title>
+    <title>boardWrite</title>
   </head>
   <style>
     .table2 td{
@@ -14,6 +14,7 @@
       <h1>글 작성하기</h1>
     </header>
     <hr/>
+    
     <form action="process_write.php" method="post">
       <table>
         <tr>
