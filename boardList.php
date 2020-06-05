@@ -3,7 +3,6 @@
   //데이터베이스 연결
   $conn = mysqli_connect('127.0.0.1:3307', 'root', '123456', 'workbench');
 
-
   //sql쿼리
   $sql = "select * from board";
 
