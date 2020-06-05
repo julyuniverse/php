@@ -1,15 +1,14 @@
 <!doctype html>
-
 <html>
-  <haed>
+  <head>
     <meta charset="utf-8";>
     <title>boardWrite</title>
+    <style>
+      .table2 td{
+        padding:10px;
+      }
+    </style>
   </head>
-  <style>
-    .table2 td{
-      padding:10px;
-    }
-  </style>
   <body>
     <header>
       <h1>글 작성하기</h1>
