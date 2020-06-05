@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
   <haed>
     <meta charset="utf-8";>
@@ -14,7 +15,7 @@
       <h1>글 작성하기</h1>
     </header>
     <hr/>
-    
+
     <form action="process_write.php" method="post">
       <table>
         <tr>
