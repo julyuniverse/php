@@ -1,45 +1,39 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8";>
-    <title>boardWrite</title>
-    <style>
-      .table2 td{
-        padding:10px;
-      }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>글 작성하기</h1>
-    </header>
-    <hr/>
+	<head>
+		<meta charset="utf-8">
+		<title>boardWrite</title>
+	</head>
 
-    <form action="process_write.php" method="post">
-      <table>
-        <tr>
-          <td>
-            <table class="table2">
-              <tr>
-                <td>작성자</td>
-                <td><input type="text" name="writer"></td>
-              </tr>
-              <tr>
-                <td>제목</td>
-                <td><input type="text" name="title" size=60></td>
-              </tr>
-              <tr>
-                <td>내용</td>
-                <td><textarea name="description" cols=85 rows=15></textarea></td>
-              </tr>
-            </table>
-            <center>
-              <input type="submit" value="글 작성">
-              <button type="button" onclick="location.href='boardList.php'">취소</button>
-            </center>
-          </td>
-        </tr>
-      </table>
-    </form>
-  </body>
+	<body>
+		<header>
+			<h1>글 쓰기</h1>
+		</header>
+		<hr/>
+
+		<form action="process_write.php" method="post">
+			<table>
+				<tr>
+					<td>작성자</td><td><input type="text" name="writer"></td>
+				</tr>
+				<tr>
+					<td>제목</td><td><input type="text" name="title"></td>
+				</tr>
+				<tr>
+					<td>내용</td><td><textarea name="description"></textarea></td>
+				</tr>
+				<tr>
+					<td>코드</td><td><input type="text" name="code"></td>
+				</tr>
+				<tr>
+					<td>카테고리</td><td><input type="text" name="category"></td>
+				</tr>
+				<tr>
+					<td>레벨</td><td><input type="text" name="level"></td>
+				</tr>
+			</table>
+			<input type="submit" value="글 쓰기">
+			<button type="button" onclick="location.href='boardList.php';">목록으로</button>
+		</form>
+	</body>
 </html>
