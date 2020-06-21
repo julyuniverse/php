@@ -1,0 +1,21 @@
+<?php
+$conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
+//파일 로드
+$csvLoad = file("./upload/file/csv.csv");
+
+//행으로 나눠서 배열에 저장
+$csvArray = explode("\r\n", implode($csvLoad));
+//print_r($csvArray);
+
+for($i=1;$i<count($csvArray);$i++){
+  $field = explode(",", addslashes($csvArray[$i]));
+  //print_r($field);
+  $value     = "'" . trim(implode("','",$field)) . "'";
+  //print_r($value);
+
+  $sql = sprintf("insert into csv(%s) values(%s)", $csvArray[0], $value);
+  $result = mysqli_query($conn, $sql);
+}
+echo $csvArray[0];
+
+?>
