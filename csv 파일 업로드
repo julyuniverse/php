@@ -19,3 +19,11 @@ for($i=1;$i<count($csvArray);$i++){
 echo $csvArray[0];
 
 ?>
+
+/*
+csv.csv
+num,name,sex,age
+1,국화꽃,w,25
+2,유재석,m,40
+3,정지훈,m,30
+*/
