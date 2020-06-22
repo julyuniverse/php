@@ -1,0 +1,20 @@
+<?php
+//데이터베이스연결
+$conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
+
+$uploaddir = "./upload/file/";
+
+$uploadfile = $uploaddir.$_FILES['userfile']['name'];
+
+$ext = array_pop(explode(".", strtolower($_FILES['userfile']['name'])));
+
+if($ext == "csv"){
+	if(copy($_FILES['userfile']['tmp_name'], $uploadfile)){
+		echo '성공';
+	}else{
+		echo '실패';
+	}
+}else{
+	echo '실패';
+}
+?>
