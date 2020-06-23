@@ -2,7 +2,9 @@
 //데이터베이스연결
 $conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
 
-$uploaddir = "./upload/file/";
+define(homedir, $_SERVER['DOCUMENT_ROOT']);
+
+$uploaddir = homedir."/upload/file/";
 
 $uploadfile = $uploaddir.$_FILES['userfile']['name'];
 
