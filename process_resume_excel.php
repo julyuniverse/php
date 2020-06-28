@@ -2,8 +2,8 @@
 $conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
 
 header("Content-type: application/vnd.ms-excel");
-header( "Content-type: application/vnd.ms-excel; charset=utf-8");
-header("Content-Disposition: attachment; filename = resume.xls");
+header( "Content-type: application/vnd.ms-excel; charset=utf-8"); //문자 
+header("Content-Disposition: attachment; filename = resume.xls"); //파일 이름 설정
 header("Content-Description: PHP4 Generated Data");
 
 $resume_no = $_GET['resume_no'];
