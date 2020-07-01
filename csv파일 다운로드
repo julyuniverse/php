@@ -1,0 +1,71 @@
+<?php
+
+	include $_SERVER['DOCUMENT_ROOT']."/admin/common.php";
+	
+	$filename = date('YmdHis')."_stock_list.csv";
+
+	header("Content-type: text/csv");
+	header("Content-Disposition: attachment; filename=$filename");
+	header("Pragma: no-cache");
+	header("Expires: 0");
+
+	echo "순번,카테고리,모델,관리번호,구매일,부서,사용자,사번,설치일,회수,OS,OFFICE,사용구분\n";
+
+		if($sstatus != "")$subSql .= " and use_type = '".$sstatus."' ";
+		if($scategory != "")$subSql .= " and type = '".$scategory."' ";
+		if($sid != "")$subSql .= " and id = '".$sid."' ";
+		if($smanage_number != "") $subSql .= " and manage_number like '%".$smanage_number."%' ";
+		if($smodel != "") $subSql .= " and model = '".$smodel."' ";
+		if($sserial != "") $subSql .= " and ( os = '".$sserial."' or office = '".$sserial."' ) ";
+
+		$sql = "select count(*) as cnt from yeji_stock where 1 $subSql order by idx desc";
+		$result  = mysql_query($sql) or error(mysql_error());
+		$row = mysql_fetch_assoc($result);
+
+		$total = $row['cnt'];
+		$no = $total;
+
+		$sql = "select * from yeji_stock where 1 $subSql order by type desc";
+		$result  = mysql_query($sql) or error(mysql_error());
+		while( $row = mysql_fetch_assoc($result) ){
+			
+			$member_sql = "select catcode,name from wiz_member where id = '".$row['id']."'";
+			$member_result = mysql_query($member_sql) or error(mysql_error());
+			$member_row = mysql_fetch_assoc($member_result);
+			
+			$catcode_sql = "select catname from wiz_memcategory where catcode like '".substr($member_row['catcode'],0,2)."%'";
+			$catcode_result = mysql_query($catcode_sql) or error(mysql_error());
+			$catcode_row = mysql_fetch_assoc($catcode_result);
+			
+			$category_sql = "select title from yeji_stock_category where idx = '".$row['type']."'";
+			$category_result = mysql_query($category_sql) or error(mysql_error());
+			$category_row = mysql_fetch_assoc($category_result);
+
+			$os_sql = "select sr.* , sc.title from yeji_stock_serial as sr 
+									left join yeji_stock_category as sc on sc.type = 'serial' and sc.idx = sr.cidx
+									where sr.idx = '".$row['os']."'";
+			$os_result = mysql_query($os_sql) or error(mysql_error());
+			$os_row = mysql_fetch_assoc($os_result);
+
+			$office_sql = "select sr.* , sc.title from yeji_stock_serial as sr 
+									left join yeji_stock_category as sc on sc.type = 'serial' and sc.idx = sr.cidx
+									where sr.idx = '".$row['office']."'";
+			$office_result = mysql_query($office_sql) or error(mysql_error());
+			$office_row = mysql_fetch_assoc($office_result);
+
+
+
+			if($row['use_type']=="Y"){
+				$status = "사용";
+			}else if($row['use_type']=="N"){
+				$status = "미사용";
+			}else if($row['use_type']=="R"){
+				$status = "고장";
+			}
+		echo $no.",".$category_row['title'].",".$row['model'].",".$row['manage_number'].",".$row['buydate'].",".$catcode_row['catname'].",".$member_row['name'].",".$row['id'].",".$row['insert_date'].",".$row['callback_date'].",".$os_row['title'].",".$office_row['title'].",".$status."\n";
+		
+		//순번 카운트 매기기
+		$no--;
+	}
+
+?>
