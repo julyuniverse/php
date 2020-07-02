@@ -1,0 +1,59 @@
+<?php
+//한국 시간 설정
+date_default_timezone_set('Asia/Seoul');
+
+//데이터베이스연결
+$conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
+
+//저장할 경로
+$uploaddir = $_SERVER['DOCUMENT_ROOT']."/upload/file";
+
+
+foreach($_FILES['userfile']['name'] as $idx => $name){
+	//echo $idx."<br>";//배열 인덱스
+	//echo $name."<br>";//해당 값
+
+	$name = $_FILES['userfile']['name'][$idx];
+	$uploadfilename = explode('.', $name);//'.'기준으로 짤라서 배열에 담는다
+	//echo $uploadfilename[0]."<br>";//파일이름
+	//echo $uploadfilename[1]."<br>";//파일확장자
+
+	$uploadfilecode = "file".date("Ymd_His").$idx.'.'.$uploadfilename[1];
+	//echo $uploadfilecode."<br>";//저장될 파일 이름
+
+	if(move_uploaded_file($_FILES['userfile']['tmp_name'][$idx], $uploaddir."/".$uploadfilecode)){
+		$sql = "insert into file(file_name, file_code)
+						values('".$_FILES['userfile']['name'][$idx]."', '".$uploadfilecode."')
+						";
+		if($result = mysqli_query($conn, $sql)){
+			echo "db 업로드 성공<br>";
+		}else{
+			echo "db 업로드 실패<br>";
+		}
+		echo "업로드 성공".$idx;
+	}else{
+		echo "업로드 실패".$idx;
+	}
+}
+
+print_r($_FILES['userfile']);
+
+
+//저장할 파일
+//$uploadfile = $_FILES['userfile1']['name'];
+
+//저장할 파일 확장자 따기
+//$ext = array_pop(explode(".", $_FILES['userfile1']['name']));
+
+//임시파일 경로
+//$tmp_file = $_FILES['userfile1']['tmp_name'];
+
+//$file_result = move_uploaded_file($tmp_file, $uploaddir."/file".date("Ymd_His").".".$ext);
+
+//if($file_result === true){
+//	echo "업로드 성공<br>";
+//}else{
+//	echo "업로드 실패<br>";
+//}
+
+?>
