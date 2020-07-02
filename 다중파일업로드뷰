@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>fileupload</title>
+</head>
+<body>
+  <form action="process_fileupload.php" method="post" enctype="multipart/form-data">
+		
+		<!-- 다중파일 업로드시 name값에 []배열 설정을 하고 multiple 기능을 입력해 열어준다 -->
+		<input type="file" name="userfile[]" multiple>
+		
+		<button type="submit">업로드</button>
+  </form>
+</body>
+</html>
