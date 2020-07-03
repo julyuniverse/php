@@ -8,7 +8,14 @@
   <form action="process_fileupload.php" method="post" enctype="multipart/form-data">
 		
 		<!-- 다중파일 업로드시 name값에 []배열 설정을 하고 multiple 기능을 입력해 열어준다 -->
-		<input type="file" name="userfile[]" multiple>
+		<input type="file" name="userfile[]" multiple="multiple">
+		
+		<!-- 단일파일 여러개 업로드시 name값에 []배열을 설정해 주고 multiple 기능 없이 input 을 여러개 만들어도 된다 -->
+		<input type="file" name="userfile[]">
+		<input type="file" name="userfile[]">
+		<input type="file" name="userfile[]">
+		<input type="file" name="userfile[]">
+		<input type="file" name="userfile[]">
 		
 		<button type="submit">업로드</button>
   </form>
