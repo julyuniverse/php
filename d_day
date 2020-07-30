@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+<h3>d_day</h3>
+<?php
+$end_date = date("2020-08-15");
+$time_stamp = strtotime(date("Y-m-d")."-1 month");
+
+if(date("m") == "07"){
+  $now_date = date("Y-m-d");
+  $end_date = (date("Y")."-08-15");
+  $d_day = intval((strtotime($now_date) - strtotime($end_date)) / 86400);
+  echo $d_day;
+}
+
+
+$nDate = date("Y-m-d",time());
+$valDate = date("2020-08-15");
+$leftDate = intval((strtotime($nDate)-strtotime($valDate)) / 86400);
+
+?>
+</body>
+</html>
