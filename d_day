@@ -3,23 +3,52 @@
 <head>
 </head>
 <body>
-<h3>d_day</h3>
 <?php
-$end_date = date("2020-08-15");
-$time_stamp = strtotime(date("Y-m-d")."-1 month");
+$conn = mysqli_connect("localhost", "root", "1234", "mysqldb");
 
-if(date("m") == "07"){
-  $now_date = date("Y-m-d");
-  $end_date = (date("Y")."-08-15");
-  $d_day = intval((strtotime($now_date) - strtotime($end_date)) / 86400);
-  echo $d_day;
+//요일
+$days = array("일", "월", "화", "수", "목", "금", "토");
+
+if(date("m") == "08"){
+  $holi_day = 0; //휴일
+  $now_date = date("Y-m-d"); //현재 날짜
+  $end_date = (date("Y")."-08-15"); //끝나는 날짜
+  $d_day = intval((strtotime($end_date) - strtotime($now_date)) / 86400);
+  
+  $tmp_days = $days[date("w")];
+  #echo $tmp_days."<br>";
+
+  $end_day = $days[date("w", strtotime($end_date))]; //특정 날짜 요일 구하기
+  #echo $end_day."<br>";
+
+  if($end_day == "토"){
+    $holi_day++;
+    $holi_day++;
+
+    $end_date = strtotime($end_date."+2 days");
+    $end_date = date("Y-m-d", $end_date);
+  }
+
+    for($i=0;$i<1;$i++){
+     
+      $sql = "select * from holi_day where wdate = UNIX_TIMESTAMP('".$end_date."')";
+      $result = mysqli_query($conn, $sql);
+      $row = mysqli_fetch_array($result);
+      #echo $row['type']."<br>";
+    
+      if($row['type'] == "holi_day"){
+        $i--;
+        $holi_day++;
+        $end_date = strtotime($end_date."+1 days");
+        echo $end_date."<br>";
+        $end_date = date("Y-m-d", $end_date);
+        echo $end_date."<br>";
+      }
+    }
+    echo "휴일".$holi_day."<br>";
+    
+    echo $d_day+$holi_day."<br>"; //d_day 출력
 }
-
-
-$nDate = date("Y-m-d",time());
-$valDate = date("2020-08-15");
-$leftDate = intval((strtotime($nDate)-strtotime($valDate)) / 86400);
-
 ?>
 </body>
 </html>
