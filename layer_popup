@@ -1,0 +1,79 @@
+<?php
+$title = basename($_SERVER['REQUEST_URI'], ".php");
+include "../include/header.php";
+include "../include/common.php";
+?>
+<style>
+.layer_popup{
+	display:none;
+	position:absolute;
+	width:100%;
+	height:100%;
+	
+	/*하단에 생성된 스크롤바 제거*/
+	margin-left:-8px;
+	margin-top:-8px;
+
+	/*rgba = 투명도 설정을 배경에만 적용*/
+	background-color:rgba(220, 220, 220, 0.5);
+}
+
+.content{
+	position:relative;
+	background-color:white;
+	top:50%;
+	left:50%;
+	width:500px;
+	height:500px;
+	margin:-250px 0 0 -250px;
+	border:5px solid lightblue;
+	box-sizing:border-box;
+}
+</style>
+<?php
+if(isset($_COOKIE['cookie_id'])){
+	$sql = "select count(bt1) as bt1 from activity_log, self_health where activity_log.id = self_health.id and left(activity_log.time, 10) = left(self_health.time, 10) and activity_log.id = '".$_COOKIE['cookie_id']."' and activity = 'login' and activity_log.time like '".date("Y-m-d")."%'";
+	$result = mysqli_query($conn, $sql);
+	$row = mysqli_fetch_array($result);
+	if($row['bt1'] == 0){
+?>
+	<script>
+	$(function(){
+		$(".layer_popup").css("display", "block");
+	})
+	</script>
+<?php
+	}
+}
+?>
+<div class="layer_popup">
+	<div class="content">
+		<form action="../self_health/self_health_save.php" method="post">
+			<input type="hidden" name="id" value="<?=$_COOKIE['cookie_id']?>">
+			온도<input type="text" name="bt1">
+			<button type="submit">확인</button>
+		</form>
+	</div>
+</div>
+
+<?php
+if(!isset($_COOKIE['cookie_id'])){
+?>
+<form action="login_proc.php" method="post">
+	ID<input type="text" name="id">
+	<br>
+	PW<input type="password" name="pw">
+	<br>
+	<button type="submit">로그인</button>
+	<a href="join.php"><button type="button">회원가입</button></a>
+</form>
+<?php
+}else{
+?>
+<a href="logout_proc.php"><button type="button">로그아웃</button></a>
+<?php
+}
+?>
+<?php
+include "../include/footer.php";
+?>
