@@ -1,0 +1,117 @@
+<?php
+date_default_timezone_set('Asia/Seoul');
+
+if(isset($_POST['date'])){
+  $date = $_POST['date'];
+  $year = substr($_POST['date'], 0, 4);
+  $month = substr($_POST['date'], 5, 2);
+  $day = substr($_POST['date'], 8, 2);
+}else{
+  $date = date("Y-m-d");
+  $year = substr($date, 0, 4);
+  $month = substr($date, 5, 2);
+  $day = substr($date, 8, 2);
+}
+
+//해당월의 첫 요일을 구한다
+$first_dow = date("w", strtotime($year."-".$month."-01"));
+
+//해당월의 일수를 구한다.
+$last_day = date("t", strtotime($date));
+
+//해당월의 첫째주 일수를 구하고 전체일수에서 뺀다
+$no0 = 7-$first_dow;
+
+$no1 = $last_day-$no0;
+
+$last_week = ceil($no1/7)+1;
+
+$week_array = array();
+?>
+<style>
+.lts_table0{
+  border:1px solid #cccccc;
+  border-spacing:0;
+}
+.lts_table0 th{
+  border:1px solid #cccccc;
+}
+.lts_table0 td{
+  border:1px solid #cccccc;
+}
+</style>
+<form action="<?=$_SERVER['PHP_SELF']?>" method="post">
+  <input type="date" name="date" value="<?=$date?>">
+  <button type="submit">검색</button>
+</form>
+<p><?=$year?>년 <?=$month?>월 <?=$day?>일</p>
+<table class="lts_table0">
+  <thead>
+    <tr>
+      <th>일</th>
+      <th>월</th>
+      <th>화</th>
+      <th>수</th>
+      <th>목</th>
+      <th>금</th>
+      <th>토</th>
+      <th>주차</th>
+      <th>주차별 날짜 목록</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    for($j=1, $i=0;$i<$last_week;$i++){
+      $date_array = array();
+    ?>
+    <tr>
+      <?php for($k=0;$k<7;$k++){?>
+      <td>
+        <?php if(($j>1 or $k >= $first_dow) and ($last_day >= $j)){
+          if($day == $j){
+            if($j < 10){
+              echo "<span style='color:red;'>0".$j."</span>";
+              array_push($date_array, $year."-".$month."-0".$j);
+            }else{
+              echo "<span style='color:red;'>".$j."</span>";
+              array_push($date_array, $year."-".$month."-".$j);
+            }
+            $j++;
+          }else{
+            if($j < 10){
+              echo "0".$j;
+              array_push($date_array, $year."-".$month."-0".$j);
+            }else{
+              echo $j;
+              array_push($date_array, $year."-".$month."-".$j);
+            }
+            $j++;
+          }
+        }
+        ?>
+      </td>
+      <?php } ?>
+      <td><?=$i+1?>주차</td>
+      <td>
+        <?php
+        echo "<pre>";
+        print_r($date_array);
+        echo "</pre>";
+        array_push($week_array, $date_array);
+        ?>
+      </td>
+    </tr>
+    <?php
+    }
+    ?>
+    <tr>
+      <td colspan="9">
+      <?php
+      echo "<pre>";
+      print_r($week_array);
+      echo "</pre>";
+      ?>
+      </td>
+    </tr>
+  </tbody>
+</table>
