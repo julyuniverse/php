@@ -1,5 +1,6 @@
 <?php
 include "../include/common.php";
+
 if($_POST['mode'] == "comment"){
 	$qry = "insert into comment(b_idx, writer, comment) values('".$_POST['idx']."', '".$_POST['id']."', '".$_POST['comment']."')";
 	$result = mysqli_query($conn, $qry);
@@ -10,7 +11,7 @@ if($_POST['mode'] == "comment"){
 		echo "<form name='form0' method='post' action='view.php'>\n";
 		for($i = 0; $i < count($post_key); $i++){
 			$value = addslashes($_POST[$post_key[$i]]);
-			echo "<input type='hidden' name='{$post_key[$i]}' value='$value'>\n";
+			echo "<input type='hidden' name='".$post_key[$i]."' value='".$value."'>\n";
 		}
 		echo "</form>\n";
 		echo "</body>\n";
@@ -22,7 +23,7 @@ if($_POST['mode'] == "comment"){
 		echo "<form name='form0' method='post' action='view.php'>\n";
 		for($i = 0; $i < count($post_key); $i++){
 			$value = addslashes($_POST[$post_key[$i]]);
-			echo "<input type='hidden' name='{$post_key[$i]}' value='$value'>\n";
+			echo "<input type='hidden' name='".$post_key[$i]."' value='".$value."'>\n";
 		}
 		echo "</form>\n";
 		echo "</body>\n";
