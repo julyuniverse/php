@@ -1,0 +1,10 @@
+<?php
+  $date1 = date_create($row['joindate']);
+  $date2 = date_create(date("Y-m-d"));
+  $date3 = date_diff($date1, $date2);
+  $intervalArray = array();
+  foreach($date3 as $key => $value) {
+    array_push($intervalArray, $value);
+  }
+  echo $intervalArray[0]."년";
+?>
