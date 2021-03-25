@@ -1,10 +1,13 @@
-<?php
-  $date1 = date_create($row['joindate']);
-  $date2 = date_create(date("Y-m-d"));
-  $date3 = date_diff($date1, $date2);
-  $intervalArray = array();
-  foreach($date3 as $key => $value) {
-    array_push($intervalArray, $value);
-  }
-  echo $intervalArray[0]."년";
-?>
+$tmpDate1 = date_create("2020-01-05");
+$tmpDate2 = date_create("2020-05-05");
+$tmpDate3 = date_diff($tmpDate1, $tmpDate2);
+print_r($tmpDate3);
+echo "<br>";
+
+$intervalArray = array();
+foreach($tmpDate3 as $value) {
+	array_push($intervalArray, $value);
+}
+
+echo $intervalArray[0]."년<br>";
+echo $intervalArray[1]."개월<br>";
