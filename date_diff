@@ -1,3 +1,5 @@
+1. 일자수(30일, 31일, 28일)를 정확하게 남은 년도, 월, 일, 시간 계산
+
 $tmpDate1 = date_create("2020-01-05");
 $tmpDate2 = date_create("2020-05-05");
 $tmpDate3 = date_diff($tmpDate1, $tmpDate2);
@@ -11,3 +13,17 @@ foreach($tmpDate3 as $value) {
 
 echo $intervalArray[0]."년<br>";
 echo $intervalArray[1]."개월<br>";
+
+2. 일자수 상관없이 개월수만 계산
+
+$tmpDate0 = "2021-04-20";
+$tmpDate1 = strtotime($tmpDate0);
+$tmpDate2 = strtotime($lastDate);
+
+$tmpYear1 = date("Y", $tmpDate1);
+$tmpYear2 = date("Y", $tmpDate2);
+
+$tmpMonth1 = date("m", $tmpDate1);
+$tmpMonth2 = date("m", $tmpDate2);
+
+$tmpDiff = (($tmpYear2-$tmpYear1)*12)+($tmpMonth2-$tmpMonth1);
