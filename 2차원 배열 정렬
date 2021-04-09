@@ -1,0 +1,70 @@
+$array = array(
+	array(
+		'id' => 0,
+		'track_num' => 7,
+		'title' => 'FAKE LOVE',
+		'artist' => '방탄소년단(BTS)'
+	),
+	array(
+		'id' => 1,
+		'track_num' => 1,
+		'title' => 'YES or YES',
+		'artist' => '트와이스'
+	),
+	array(
+		'id' => 2,
+		'track_num' => 3,
+		'title' => '달라달라',
+		'artist' => 'ITZY(있지)'
+	),
+	array(
+		'id' => 3,
+		'track_num' => 10,
+		'title' => '벌써 12시',
+		'artist' => '청하'
+	),
+	array(
+		'id' => 4,
+		'track_num' => 28,
+		'title' => '열애중',
+		'artist' => '벤'
+	),
+	array(
+		'id' => 5,
+		'track_num' => 14
+		'title' => '삐삐',
+		'artist' => '아이유(IU)'
+	),
+	array(
+		'id' => 6,
+		'track_num' => 30,
+		'title' => '가을 타나 봐',
+		'artist' => '바이브'
+	),
+	array(
+		'id' => 7,
+		'track_num' => 11,
+		'title' => '그때 헤어지면 돼',
+		'artist' => '로이킴'
+	),
+	array(
+		'id' => 8,
+		'track_num' => 31,
+		'title' => 'IDOL',
+		'artist' => '방탄소년단(BTS)'
+	),
+);
+위처럼 다차원 배열로 된 배열이 있다고 가정하겠습니다.
+
+배열에는 가수 이름과 노래 제목, 트랙 순서등이 정의 되어있습니다.
+
+
+
+이것을 track_num(트랙 순서)로 정렬 하는 방법을 보겠습니다.
+
+foreach ((array) $array as $key => $value) {
+	$sort[$key] = $value['track_num'];
+}
+
+array_multisort($sort, SORT_ASC, $array);
+print_r($array);
