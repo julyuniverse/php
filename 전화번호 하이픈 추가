@@ -1,0 +1,10 @@
+<?php
+// 뒤에서 4자리 마다 -를 추가 시키기
+$tmpTel = array();
+for($j = strlen($value2['tel']), $k = 1; $j > 0; $j--) {
+  array_push($tmpTel, $value2['tel'][$j-1]);
+  if($k%4 == 0 and $k != strlen($value2['tel'])) array_push($tmpTel, "-");
+  $k++;
+}
+$tmpTel = implode(array_reverse($tmpTel));
+?>
