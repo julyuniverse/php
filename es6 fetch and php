@@ -23,7 +23,27 @@ function abc(type, item, option) {
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
 if($contentType === "application/json") {
-  $content = trim(file_get_contents("php://input"));
-  $decoded = json_decode($content, true);
+	$content = trim(file_get_contents("php://input"));
+	$decoded = json_decode($content, true);
+	
+	if($decoded[type] == "ex") {
+		$resultList = array();
+		
+		$qry = "select * from abc";
+		$result = mysqli_query($connect, $qry);
+		while($row = mysqli_fetch_array($result)) {
+			$resultList[] = $row;
+		}
+
+		foreach($resultList as $row) {
+			$items[] = array(
+				'deptCode' => $row[code],
+				'deptName' => urlencode($row[name]),
+			);
+		}
+		$json = urldecode(json_encode($items));
+		echo $json;
+	}
+
 }
 ?>
