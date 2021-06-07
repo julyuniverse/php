@@ -1,0 +1,29 @@
+
+
+// es6 fetch
+function abc(type, item, option) {
+	fetch('http://example.com/include/ajax.php', {
+		method: 'post',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+			"type": type,
+			"item": item,
+      "option": option
+    })
+	})
+	.then(res => res.json()) // or .then(res => res.text())
+	.then((data) => {
+		console.log(data);
+	})
+	.catch(error => console.error('Error:', error));
+}
+
+// php
+<?php
+$contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+if($contentType === "application/json") {
+  $content = trim(file_get_contents("php://input"));
+  $decoded = json_decode($content, true);
+}
+?>
