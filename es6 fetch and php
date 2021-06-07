@@ -4,12 +4,12 @@
 function abc(type, item, option) {
 	fetch('http://example.com/include/ajax.php', {
 		method: 'post',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
+    		headers: {'Content-Type': 'application/json'},
+    		body: JSON.stringify({
 			"type": type,
 			"item": item,
-      "option": option
-    })
+      			"option": option
+    		})
 	})
 	.then(res => res.json()) // or .then(res => res.text())
 	.then((data) => {
