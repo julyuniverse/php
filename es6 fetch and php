@@ -26,7 +26,7 @@ if($contentType === "application/json") {
 	$content = trim(file_get_contents("php://input"));
 	$decoded = json_decode($content, true);
 	
-	if($decoded[type] == "ex") {
+	if($decoded['type'] == "ex") {
 		$resultList = array();
 		
 		$qry = "select * from abc";
@@ -37,8 +37,8 @@ if($contentType === "application/json") {
 
 		foreach($resultList as $row) {
 			$items[] = array(
-				'deptCode' => $row[code],
-				'deptName' => urlencode($row[name]),
+				'deptCode' => $row['code'],
+				'deptName' => urlencode($row['name']),
 			);
 		}
 		$json = urldecode(json_encode($items));
